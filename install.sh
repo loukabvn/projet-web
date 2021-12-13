@@ -96,7 +96,7 @@ fi
 
 # Deploy application with Tomcat
 echo -e "\n[1/7] Déploiement de l'application..."
-if [ -n $war ]; then
+if [[ -n $war ]]; then
     mv ./ProjetWeb.war /var/lib/tomcat8/webapps/
 else
     cp ./ProjetWeb.war /var/lib/tomcat8/webapps/
