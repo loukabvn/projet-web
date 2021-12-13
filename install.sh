@@ -76,19 +76,19 @@ echo "Installation de la plateforme..."
 # get project from github if it's not in the directory
 if [[ ! -f ./ProjetWeb.war ]]; then
     echo "Récupération de l'archive du projet depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/ProjetWeb.war
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/ProjetWeb.war > /dev/null
     war=true
 fi
 
 if [[ ! -f ./creation.sql ]]; then
     echo "Récupération du script SQL de création des tables depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql > /dev/null
     sql_script=true
 fi
 
 if [[ ! -f ./Generation.java ]]; then
     echo "Récupération du script Java pour la génération de mot de passe depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java > /dev/null
     java=true
 fi
 
@@ -96,7 +96,7 @@ fi
 
 # Deploy application with Tomcat
 echo -e "\n[1/7] Déploiement de l'application..."
-if [[ -n $war ]]; then
+if [[ -n "$war" ]]; then
     mv ./ProjetWeb.war /var/lib/tomcat8/webapps/
 else
     cp ./ProjetWeb.war /var/lib/tomcat8/webapps/
@@ -159,10 +159,10 @@ echo -e "\n[7/7] Administrateur ajouté à la table"
 
 ###### CLEANING ######
 
-if [[ -n $sql_script ]]; then
+if [[ -n "$sql_script" ]]; then
     rm ./creation.sql
 fi
-if [[ -n $java ]]; then
+if [[ -n "$java" ]]; then
     rm ./Generation.java
 fi
 
