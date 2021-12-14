@@ -25,19 +25,19 @@ read_password() {
     fi
 
     # use Internal Field Separator
-    while IFS= read -p "$prompt" -r -s -n 1 letter
+    while IFS= read -p "$prompt" -r -s -n 1 char 
     do
-        # catch 'Enter'
-        if [[ $letter == $'\0' ]]
-        then
+        if [[ $char == $'\0' ]]; then
             break
         fi
-        # store password letter by letter
-        password="$password$letter"
-        # output asterisk
-        prompt="*"
+        if [[ $char == $'\177' ]]; then
+            prompt=$'\b \b'
+            password="${password%?}"
+        else
+            prompt='*'
+            password+="$char"
+        fi
     done
-
     echo $password
 }
 
