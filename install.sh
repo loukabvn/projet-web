@@ -123,7 +123,7 @@ mysql <<< $sql
 sql="GRANT ALL PRIVILEGES ON projet.* TO '$username'@'%';"
 mysql <<< $sql
 
-echo -e "\n[3/7] Utilisateur créé"
+echo -e "\n[3/7] Utilisateur $username créé"
 
 ###### CREATION ######
 
@@ -155,7 +155,7 @@ sql="USE projet; INSERT INTO Admin(AdminName, AdminMail, AdminPassword, AdminSal
 # Insert admin
 mysql <<< $sql
 
-echo -e "\n[7/7] Administrateur ajouté à la table"
+echo -e "\n[7/7] $username ajouté en tant qu'administrateur"
 
 ###### CLEANING ######
 
