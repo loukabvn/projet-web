@@ -77,26 +77,26 @@ echo "Installation de la plateforme..."
 if [[ ! -f ./ProjetWeb.war ]]; then
     echo "Récupération de l'archive du projet depuis GitHub..."
     wget https://raw.githubusercontent.com/loukabvn/projet-web/main/ProjetWeb.war > /dev/null
-    war=true
+    war=1
 fi
 
 if [[ ! -f ./creation.sql ]]; then
     echo "Récupération du script SQL de création des tables depuis GitHub..."
     wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql > /dev/null
-    sql_script=true
+    sql_script=1
 fi
 
 if [[ ! -f ./Generation.java ]]; then
     echo "Récupération du script Java pour la génération de mot de passe depuis GitHub..."
     wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java > /dev/null
-    java=true
+    java=1
 fi
 
 ###### DEPLOYEMENT ######
 
 # Deploy application with Tomcat
 echo -e "\n[1/7] Déploiement de l'application..."
-if [[ -n "$war" ]]; then
+if [[ $war -gt 0 ]]; then
     mv ./ProjetWeb.war /var/lib/tomcat8/webapps/
 else
     cp ./ProjetWeb.war /var/lib/tomcat8/webapps/
@@ -159,12 +159,8 @@ echo -e "\n[7/7] Administrateur ajouté à la table"
 
 ###### CLEANING ######
 
-if [[ -n "$sql_script" ]]; then
-    rm ./creation.sql
-fi
-if [[ -n "$java" ]]; then
-    rm ./Generation.java
-fi
+[[ $sql_script -gt 0 ]] && rm ./creation.sql
+[[ $java -gt 0 ]] && rm ./Generation.java
 
 ###### DONE ######
 
