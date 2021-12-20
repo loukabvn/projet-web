@@ -3,6 +3,14 @@
 # Script d'installation - Projet Langages Web 1
 # Necéssite les droits administrateurs
 
+# check rights
+
+if [ "$EUID" -ne 0 ]; then
+    echo "Le script doit être lancé en tant que root !"
+    exit
+fi
+
+
 # colors
 
 red="\e[0;91m"
@@ -17,11 +25,11 @@ reset="\e[0m"
 
 # check password strength
 is_valid() {
-        [ "${#1}" -ge 8 ] &&
-        [[ $1 =~ [[:upper:]] ]] &&
-        [[ $1 =~ [[:lower:]] ]] &&
-        [[ $1 =~ [[:digit:]] ]] &&
-        [[ $1 =~ [[:punct:]] ]]
+    [ "${#1}" -ge 8 ] &&
+    [[ $1 =~ [[:upper:]] ]] &&
+    [[ $1 =~ [[:lower:]] ]] &&
+    [[ $1 =~ [[:digit:]] ]] &&
+    [[ $1 =~ [[:punct:]] ]]
 }
 
 # read password and replace with asterisk (*)
