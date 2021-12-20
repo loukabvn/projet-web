@@ -4,21 +4,16 @@
 # Necéssite les droits administrateurs
 
 # check rights
-
 if [ "$EUID" -ne 0 ]; then
     echo "Le script doit être lancé en tant que root !"
     exit
 fi
 
-
 # colors
-
 red="\e[0;91m"
 blue="\e[0;94m"
 green="\e[0;92m"
-white="\e[0;97m"
 bold="\e[1m"
-uline="\e[4m"
 reset="\e[0m"
 
 # useful functions
@@ -145,7 +140,7 @@ echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 ###### CONFIG FILE ######
 
 echo -e "{\n\t\"host\": \"localhost\",\n\t\"db\": \"projet\",\n\t\"username\": \"$username\",\n\t\"password\": \"$password\"\n}" > access.config
-# mv access.config dest_dir/
+mv access.config /var/lib/tomcat8/ProjetWeb/common/
 
 ###### CREATION ######
 
@@ -164,8 +159,7 @@ if [[ $response == [Yy]* ]]; then
     echo "Exécution du script..."
     mysql < ./insert.sql
     echo "Données ajoutés"
-else
-    echo " "
+    dataset=1
 fi
 
 ###### PLATFORM CONFIGURATION ######
@@ -199,6 +193,7 @@ echo -e "${bold}[7/7] $username ajouté en tant qu'administrateur${reset}"
 echo "Nettoyage des fichiers d'installation..."
 [[ $sql_script -gt 0 ]] && rm ./creation.sql
 [[ $java -gt 0 ]] && rm ./Generation.java
+[[ $dataset -gt 0 ]] && rm ./insert.sql
 
 ###### DONE ######
 
