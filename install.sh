@@ -140,7 +140,7 @@ echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 ###### CONFIG FILE ######
 
 echo -e "{\n\t\"host\": \"localhost\",\n\t\"db\": \"projet\",\n\t\"username\": \"$username\",\n\t\"password\": \"$password\"\n}" > access.config
-mv access.config /var/lib/tomcat8/ProjetWeb/common/
+mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 
 ###### CREATION ######
 
