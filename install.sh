@@ -154,6 +154,20 @@ mysql < ./creation.sql
 
 echo -e "${bold}[4/7] Tables créées${reset}"
 
+###### DATA SET ######
+
+response=""
+read -p "Souhaitez-vous insérer le jeu de données de test dans la base de données ? [y/n] " response
+if [[ $response == [Yy]* ]]; then
+    echo "Récupération du script SQL depuis GitHub..."
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/insert.sql 2> /dev/null
+    echo "Exécution du script..."
+    mysql < ./insert.sql
+    echo "Données ajoutés"
+else
+    echo " "
+fi
+
 ###### PLATFORM CONFIGURATION ######
 
 # Create admin for the platform
