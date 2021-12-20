@@ -86,19 +86,19 @@ echo -e "${bold}Installation de la plateforme${reset}"
 # get project from github if it's not in the directory
 if [[ ! -f ./ProjetWeb.war ]]; then
     echo "Récupération de l'archive du projet depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/ProjetWeb.war 2>&1 /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/ProjetWeb.war 2> /dev/null
     war=1
 fi
 
 if [[ ! -f ./creation.sql ]]; then
     echo "Récupération du script SQL de création des tables depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql 2>&1 /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql 2> /dev/null
     sql_script=1
 fi
 
 if [[ ! -f ./Generation.java ]]; then
     echo "Récupération du script Java pour la génération de mot de passe depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java 2>&1 /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java 2> /dev/null
     java=1
 fi
 
