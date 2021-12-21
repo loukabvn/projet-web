@@ -139,7 +139,12 @@ echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 
 ###### CONFIG FILE ######
 
-echo -e "{\n\t\"host\": \"localhost\",\n\t\"db\": \"projet\",\n\t\"username\": \"$username\",\n\t\"password\": \"$password\"\n}" > access.config
+echo "; Fichier de configuration de la base de données" > access.config
+echo "[conf]" >> access.config
+echo "host = \"localhost\"" >> access.config
+echo "db = \"projet\"" >> access.config
+echo "username = \"$username\"" >> access.config
+echo "password = \"$password\"" >> access.config
 mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 
 ###### CREATION ######
