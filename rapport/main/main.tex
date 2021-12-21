@@ -6,14 +6,54 @@ anomalie sur une ressource simplement en scannant un QR code.
 
 \chapter{Architecture}
 
-\section{Modèle MVC}
+\section{Modèle de la base de données}
+La première étape de la conception était de décider du modèle de la base de données. Le schéma
+suivant décrit le schéma des tables que nous avons choisi :\newline
 
-\section{Frameworks}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth]{img/schemaSQL.png}
+    \caption{Schéma des tables de la base de données}
+    \label{fig:schemaSQL}
+\end{figure}
+\newpage
+
+\section{Modèle MVC}
+L'application a été conçu en suivant le modèle MVC (Modèle-Vue-Contrôleur). C'est le modèle le
+plus simple et le plus utilisée.
+
+\section{Technologies choisies}
+La partie vue est écrite dans les langages classiques : HTML \& CSS. Nous n'avons pas utiliser
+de JavaScript pour la plateforme.\newline
+
+Nous avons choisis d'utiliser Java avec les Servlets et les JSP pour développer la partie
+contrôleur de l'application.\newline
+
+Le modèle est donc écrit en Java en utilisant la bibliothèque JDBC pour les interactions avec
+le SGBD (MySQL). Nous avons premièrement implémenter des classes Java décrivant simplement le
+modèle des types d'objets utilisés, c'est-à-dire :
+\begin{itemize}
+    \item \verb:User: : classe des utilisateurs,
+    \item \verb:Admin: : classe des administrateurs, héritant de \verb:User:,
+    \item \verb:Maintainer: : classe des responsables de maintenance, héritant de \verb:User:,
+    \item \verb:Ressource: : classe des ressources,
+    \item \verb:Anomaly: : classe des anomalies.
+\end{itemize}
+Ensuite pour chacune des classes exceptées \verb:User: nous avons écrit une classe correspondante
+qui fait l'intermédiaire entre le SGBD et le modèle, selon le modèle DAO (Data Access Object).
+
+
+\subsection{Frameworks}
+Pour développer la plateforme nous avons utilisés un framework pour le CSS :
+\textbf{Bootstrap}.
+Cela nous a permis de simplifier grandement le développement de la vue afin de se concentrer sur
+le back-end.
 
 \section{Sécurisation}
-Afin de sécuriser au mieux la plateforme nous avons mis en place les sécurités suivantes:
+Afin de sécuriser au mieux la plateforme nous avons mis en place les sécurités suivantes :
 \begin{description}
-    \item[\textbf{filtrage des urls:}] via un filter JEE 
+    \item[\textbf{Filtrage des urls:}] via un filter JEE.
+    \item[\textbf{Requête préparées:}] en utilisant la bibliothèque JDBC.
 \end{description}
 
 \chapter{Difficultés}
