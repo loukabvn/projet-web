@@ -151,10 +151,10 @@ password=$(ask_password)
 
 # admin rights needed here
 sql="CREATE USER '$username'@'%' IDENTIFIED BY '$password';"
-mysql -execute=$sql
+mysql <<< $sql
 
 sql="GRANT ALL PRIVILEGES ON projet.* TO '$username'@'%';"
-mysql -execute=$sql
+mysql <<< $sql
 
 echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 
@@ -211,7 +211,7 @@ passwd_hash=$(java ./Generation.java cook "$salt" "$password")
 
 sql="USE projet; INSERT INTO Admin(AdminName, AdminMail, AdminPassword, AdminSalt) VALUES('$username', '$email', '$passwd_hash', '$salt');"
 # Insert admin
-mysql $sql
+mysql <<< $sql
 
 echo -e "${bold}[7/7] $username ajouté en tant qu'administrateur${reset}"
 
