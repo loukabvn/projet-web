@@ -4,11 +4,11 @@ INSERT INTO
     Maintainer(MainName, MainMail, MainPassword, MainSalt, MainStatus)
 VALUES
     -- Mot de passe : Password#1
-    ("Default", "default@domain.com", "ra_2i2hOcUaRQWXQLwVr34hBrsHzzgr2tC1hepbwWek=",
-        "H1Y2hZ91pue8S_aMVJe5ekJS-wWNP1aU3ccrM-z0R3Y=", 1),
+    ("Default", "default@domain.com", "H1Y2hZ91pue8S_aMVJe5ekJS-wWNP1aU3ccrM-z0R3Y=",
+        "ra_1i2hOcUaRQWXQLwVr34hBrsHzzgr2tC1hepbwWek=", 1),
     -- Mot de passe : Password#2
-    ("Default2", "default2@domain.com", "TzSfHbNruIckCsHO2OW52W9-TXarHderYhLWdXfWbn4=",
-        "HM6qYGlj7hDQY0th-1dF8V45tUHZ5r0hoZ33f9jzINA=", 1);
+    ("Default2", "default2@domain.com", "HM6qYGlj7hDQY0th-1dF8V45tUHZ5r0hoZ33f9jzINA=",
+        "TzSfHbNruIckCsHO2OW52W9-TXarHderYhLWdXfWbn4=", 1);
 
 INSERT INTO
     Ressource(ResDesc, ResLocation, ResMaintainer)
