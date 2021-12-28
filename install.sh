@@ -105,6 +105,23 @@ if [[ ! -f ./Generation.java ]]; then
     java=1
 fi
 
+###### COPYING JARs FILES ######
+
+# list of needed jar files
+jars=("qrgen-1-0.jar" "zxing-core-1-7.jar" "zxing-j2se-1-7.jar" "mysql-connector-java-8.0.27.jar")
+
+for jar in "${jars[@]}"
+do
+    if [[ ! -f ./$jar ]]; then
+        # for each jar if they are not present fetch him from GitHub
+        echo "Récupération du fichier $jar depuis GitHub..."
+        wget https://github.com/loukabvn/projet-web/raw/main/jars/$jar 2> /dev/null
+        mv ./$jar /var/lib/tomcat8/lib
+    else
+        cp ./$jar /var/lib/tomcat8/lib
+    fi
+done
+
 ###### DEPLOYEMENT ######
 
 # Deploy application with Tomcat
@@ -114,13 +131,14 @@ if [[ $war -gt 0 ]]; then
 else
     cp ./ProjetWeb.war /var/lib/tomcat8/webapps/
 fi
+sleep 1
 
 ###### MYSQL CONFIGURATION ######
 
 # Config database access
 echo -e "${bold}[2/7] Configuration de l'accès à la base de données.${reset}"
 echo "Création d'un utilisateur MySQL avec tous les droits sur la base de données de la plateforme."
-echo -e "Veuillez entrer les informations suivantes :"
+echo "Veuillez entrer les informations suivantes :"
 
 # ask username
 username=""
