@@ -151,10 +151,10 @@ password=$(ask_password)
 
 # admin rights needed here
 sql="CREATE USER '$username'@'%' IDENTIFIED BY '$password';"
-mysql <<< $sql
+mysql -execute=$sql
 
 sql="GRANT ALL PRIVILEGES ON projet.* TO '$username'@'%';"
-mysql <<< $sql
+mysql -execute=$sql
 
 echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 
@@ -166,6 +166,7 @@ echo "host = \"localhost\"" >> access.config
 echo "db = \"projet\"" >> access.config
 echo "username = \"$username\"" >> access.config
 echo "password = \"$password\"" >> access.config
+
 mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 
 ###### CREATION ######
@@ -210,7 +211,7 @@ passwd_hash=$(java ./Generation.java cook "$salt" "$password")
 
 sql="USE projet; INSERT INTO Admin(AdminName, AdminMail, AdminPassword, AdminSalt) VALUES('$username', '$email', '$passwd_hash', '$salt');"
 # Insert admin
-mysql <<< $sql
+mysql $sql
 
 echo -e "${bold}[7/7] $username ajouté en tant qu'administrateur${reset}"
 

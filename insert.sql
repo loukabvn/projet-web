@@ -16,15 +16,15 @@ VALUES
     ("Vidéo-projecteur", "Salle U2.2.39", 1),
     ("Photocopieuse", "Hall", 1),
     ("Robinet", "Toilettes 1ère étage", 1),
-    ("Écran d\'ordinateur - Poste 12", "Salle U2.2.49", 2),
+    ("Écran d''ordinateur - Poste 12", "Salle U2.2.49", 2),
     ("Toile de projection", "Amphi D", 2);
 
 INSERT INTO
     Anomaly(AnomalyDesc, AnomalyStatus, AnomalyRes, AnomalyStartDate)
 VALUES
-    ("Problème d\'affichage", 0, 1, "2021-12-20"),
-    ("Plus d\'encre", 0, 2, "2021-12-11"),
+    ("Problème d''affichage", 0, 1, "2021-12-20"),
+    ("Plus d''encre", 0, 2, "2021-12-11"),
     ("Plus de papier", 0, 2, "2021-12-11"),
     ("Ne fonctionne plus", 0, 3, "2021-11-24"),
-    ("L\'écran ne s\'allume plus", 0, 4, "2021-12-05"),
+    ("L''écran ne s''allume plus", 0, 4, "2021-12-05"),
     ("La toile ne descend plus", 0, 5, "2021-12-07");
