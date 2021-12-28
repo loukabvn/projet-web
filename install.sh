@@ -121,6 +121,9 @@ do
         cp ./$jar /var/lib/tomcat8/lib
     fi
 done
+# change owner of .jar and restart tomcat service
+chown tomcat8 /var/lib/tomcat8/lib/*
+systemctl restart tomcat8
 
 ###### DEPLOYEMENT ######
 
