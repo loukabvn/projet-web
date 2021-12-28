@@ -4,6 +4,26 @@ Le but de ce projet est de développer une plateforme de signalement pour la mai
 infrastructures d'une organisation. Cette plateforme permettra aux usagers de signaler une
 anomalie sur une ressource simplement en scannant un QR code.
 
+\section{Exigences fonctionnelles}
+
+On pourra distinguer trois types d'utilisateurs sur cette plateforme :
+\begin{itemize}
+    \item Les utilisateurs anonymes qui peuvent signaler des anomalies en flashant le QR associé
+        à une ressource et en décrivant l'anomalie.
+    \item Les responsables de maintenance qui peuvent gérer les ressources et les tickets
+        d'anomalies. Chaque responsable possèdent un ensemble de ressources dont ils sont les
+        seuls à s'occuper.
+    \item Enfin, un administrateur (unique) qui peut gérer les responsables de maintenance et
+        transférer les droits sur les ressources.
+\end{itemize}
+
+Pour chaque ressource un utilisateur pourra déclarer une nouvelle anomalie ou bien séléctionner
+une parmi une listes d'anomalies déjà entrée par les autres utilisateurs.
+
+On devra pouvoir imprimer sur la plateforme les étiquettes avec les QR code et les URLs 
+correspondant aux ressources. Les étiquettes devront avoir un format de 105x42 mm une fois
+imprimées et l'impression devra ce faire depuis un rendu Web sans générer de PDF.
+
 \chapter{Architecture}
 
 \section{Modèle de la base de données}

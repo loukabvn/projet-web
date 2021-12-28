@@ -71,12 +71,12 @@ public class Generation {
 	
 	public static void main(String[] args) {
         if (args[0].equals("salt")) {
-            System.out.println(generateSalt());
+            System.out.print(generateSalt());
         }
         if (args[0].equals("cook")) {
             String salt = args[1];
             String passwd = args[2];
-            System.out.println(cookPassword(salt, passwd));
+            System.out.print(cookPassword(salt, passwd));
         }
 	}
 }
