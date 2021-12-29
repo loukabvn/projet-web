@@ -16,15 +16,20 @@ On pourra distinguer trois types d'utilisateurs sur cette plateforme :
     \item Enfin, un administrateur (unique) qui peut gérer les responsables de maintenance et
         transférer les droits sur les ressources.
 \end{itemize}
+\medskip
 
 Pour chaque ressource un utilisateur pourra déclarer une nouvelle anomalie ou bien séléctionner
-une parmi une listes d'anomalies déjà entrée par les autres utilisateurs.
+une parmi une listes d'anomalies déjà entrée par les autres utilisateurs.\newline
 
 On devra pouvoir imprimer sur la plateforme les étiquettes avec les QR code et les URLs 
 correspondant aux ressources. Les étiquettes devront avoir un format de 105x42 mm une fois
 imprimées et l'impression devra ce faire depuis un rendu Web sans générer de PDF.
 
 \chapter{Architecture}
+Cette section détaille l'architecture que nous avons choisi pour créer la plateforme.
+
+Elle explique aussi les choix de technologies que nous avons fait et le déroulement du
+développement dans les grandes lignes.
 
 \section{Modèle de la base de données}
 La première étape de la conception était de décider du modèle de la base de données. Le schéma
@@ -38,10 +43,6 @@ suivant décrit le schéma des tables que nous avons choisi :\newline
 \end{figure}
 \newpage
 
-\section{Modèle MVC}
-L'application a été conçu en suivant le modèle MVC (Modèle-Vue-Contrôleur). C'est le modèle le
-plus simple et le plus utilisée.
-
 \section{Technologies choisies}
 La partie vue est écrite dans les langages classiques : HTML \& CSS. Nous n'avons pas utiliser
 de JavaScript pour la plateforme.\newline
@@ -50,7 +51,21 @@ Nous avons choisis d'utiliser Java avec les Servlets et les JSP pour développer
 contrôleur de l'application.\newline
 
 Le modèle est donc écrit en Java en utilisant la bibliothèque JDBC pour les interactions avec
-le SGBD (MySQL). Nous avons premièrement implémenter des classes Java décrivant simplement le
+le SGBD (MySQL).
+
+\subsection{Frameworks}
+Pour développer la plateforme nous avons utilisés un framework pour le CSS :
+\textbf{Bootstrap}.
+Cela nous a permis de simplifier grandement le développement du front-end afin de se concentrer
+sur le back-end.
+
+\section{Modèle}
+
+L'application a été conçu en suivant le modèle MVC (Modèle-Vue-Contrôleur). C'est le modèle le
+plus simple et le plus utilisée et également celui que l'on a vu en cours donc c'était un choix
+évident.\newline
+
+Nous avons premièrement implémenter des classes Java décrivant simplement le
 modèle des types d'objets utilisés, c'est-à-dire :
 \begin{itemize}
     \item \verb:User: : classe des utilisateurs,
@@ -59,26 +74,79 @@ modèle des types d'objets utilisés, c'est-à-dire :
     \item \verb:Ressource: : classe des ressources,
     \item \verb:Anomaly: : classe des anomalies.
 \end{itemize}
+\medskip
+
 Ensuite pour chacune des classes exceptées \verb:User: nous avons écrit une classe correspondante
 qui fait l'intermédiaire entre le SGBD et le modèle, selon le modèle DAO (Data Access Object).
+\newline
 
+Les DAO nous permettent donc de récupérer un élément de la base de donnée directement sous forme
+d'objets du modèle. Ensuite nous pouvons donc facilement manipuler ces objets à notre guise puis
+si besoin les renvoyer au DAO afin de mettre à jour la base de données selon l'état de cet objet.
 
-\subsection{Frameworks}
-Pour développer la plateforme nous avons utilisés un framework pour le CSS :
-\textbf{Bootstrap}.
-Cela nous a permis de simplifier grandement le développement de la vue afin de se concentrer sur
-le back-end.
+Un exemple d'utilisation du DAO est illustré avec la figure \ref{fig:dao}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{img/DAO.png}
+    \caption{Exemple d'utilisation de la classe RessourceDAO}
+    \label{fig:dao}
+\end{figure}
+\newpage
+\medskip
 
 \section{Sécurisation}
+
 Afin de sécuriser au mieux la plateforme nous avons mis en place les sécurités suivantes :
 \begin{description}
     \item[\textbf{Filtrage des urls:}] via un filter JEE.
     \item[\textbf{Requête préparées:}] en utilisant la bibliothèque JDBC.
 \end{description}
+\medskip
+
+Une fois ses différentes sécuritées mises en place, nous avons testé leurs fiabilités en essayant
+d'effectuer différentes actions :
+\begin{itemize}
+    \item Obtenir sur la plateforme des droits que nous avons pas (broken access control).
+    \item Injections XSS.
+    \item Injections SQL.
+\end{itemize}
 
 \chapter{Difficultés}
 
+Durant ce projet nous avons eu des difficultés qui ont fait que celui ci nous as pris beaucoup
+plus de temps que prévu.\newline
+
+La première difficulté fut de réussir à interagir avec notre base de données en utilisant Java.
+Après quelques échecs et des recherches sur Internet nous avons trouvé le problème : l'ensemble
+de classes qui permet les interactions avec un SGBD (JDBC) n'est pas intégré à l'API Java de
+base. Il fallait donc trouver, télécharger et inclure au projet la librairie le permettant
+(\verb:mysql-connector-java.jar:).\newline
+
+Après avoir écrit le modèle et la vue du projet, nous avons eu quelques difficultés au moment
+d'écrire le contrôleur [... à expliquer ...].\newline
+
+Également le fait d'utiliser Java comme langage de programmation de la plateforme nous as
+poussé à utiliser Eclipse comme IDE. Cela permet de gagner beaucoup de temps sur certains points
+(compilation, tests, auto-complétion, vérification de la syntaxe) mais aussi nous en as fait
+perdre énormément à causes de problèmes pour ajouter des librairies, des différentes versions
+et de leurs compatibilités, de bugs etc...
+
+Aussi, le fait d'utiliser un IDE aussi puissant avec beaucoup d'outils qui permet de se passer de
+certaines tâches comme Eclipse fait que nous ne connaissons pas tout le fonctionnement derrière.
+Et donc, pour une tâche comme le déploiement du site sur la VM, nous avons eu des problème. Par
+exemple, les librairies externes ne se liaient pas correctement, nous avons cherché longtemps
+avant de comprendre qu'il fallait les copier dans un répertoire spécifique et redémarrer Tomcat
+(voir \verb:install.sh:).
+
+
 \chapter{Conclusion}
+En conclusion, malgré les difficultés rencontrées, nous avons pu terminer le projet, et celui-ci
+est fonctionnel. Les différentes exigences et contraintes ont été respectées.
+
+Ce projet nous as permis de mieux comprendre l'architecture d'une application Web, le modèle
+MVC et la sécurisation de celle-ci. Également il nous as fait manipuler les Servlets et JSPs
+qui facilite beaucoup l'implémentation d'une application en suivant le modèle MVC.
 
 \chapter{Annexe}
 
