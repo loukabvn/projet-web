@@ -4,10 +4,10 @@
 # Necéssite les droits administrateurs
 
 # check rights
-#if [ "$EUID" -ne 0 ]; then
-#    echo "Le script doit être lancé en tant que root !"
-#    exit
-#fi
+if [ "$EUID" -ne 0 ]; then
+    echo "Le script doit être lancé en tant que root !"
+    exit
+fi
 
 # colors
 red="\e[0;91m"
