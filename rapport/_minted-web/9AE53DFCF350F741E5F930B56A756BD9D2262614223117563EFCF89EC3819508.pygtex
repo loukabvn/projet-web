@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+wget https://raw.githubusercontent.com/loukabvn/projet\PYGZhy{}web/main/install.sh
+chmod u+x install.sh
+su root
+./install.sh
+\end{Verbatim}
