@@ -112,6 +112,38 @@ d'effectuer différentes actions :
     \item Injections XSS.
     \item Injections SQL.
 \end{itemize}
+\newpage
+
+\subsection{Stockage des mots de passe}
+
+Pour pouvoir stocker les mots de passe de manière sécurisée, nous avons procédé de la manière
+suivante :
+\begin{enumerate}
+    \item Pour chaque utilisateur on génère un sel en utilisant le CSPRNG (Cryptographically Strong
+        Pseudo Random Number Generator) de Java (\verb:SecureRandom:). Ce sel est une suite de
+        bits que l'on encode ensuite en base64 (pour le stockage dans la BDD).
+
+    \item Ensuite on converti le mot de passe de l'utilisateur en bits et on décode notre sel. On
+        peut maintenant hashé notre suite de bits composé du sel et du mot de passe. Pour cela on
+        utilise la classe \verb:MessageDigest: de Java avec l'algorithme SHA-256.
+
+    \item Une fois le hash généré on peut ré-encoder celui ci en base64 et le stocker ainsi que le
+        sel dans la base de donnée.
+\end{enumerate}
+
+Pour vérifier un mot de passe lors d'une connexion il suffit de récupérer le sel dans la base
+de données et de refaire l'étape 2. Ensuite on compare simplement la chaîne ainsi créée avec le
+mot de passe de référence dans la BDD.
+
+\subsection{Statut des responsables de maintenance}
+
+Comme la page de création de compte est accessible par tous, pour faire en sorte que n'importe
+quel utilisateur n'obtienne pas les droits d'un responsable de maintenance, nous avons défini
+un attribut supplémentaire : le statut (\verb:MainStatus:).
+
+Il est par défaut défini à <<en attente>>, c'est-à-dire en attente de validation par
+l'administrateur. Ensuite si l'administrateur l'active il passe à <<actif>>, à ce moment là le
+responsable obtient ses droits, puis peut repasser à <<inactif>> si l'administrateur le décide.
 
 \chapter{Difficultés}
 
@@ -151,7 +183,7 @@ qui facilite beaucoup l'implémentation d'une application en suivant le modèle 
 
 \chapter{Annexe}
 
-\section{Notice d'utilisation}
+\section{Notice d'installation}
 
 L'installation peut se faire de deux manières différentes :
 
@@ -176,6 +208,7 @@ administrateur de la plateforme.
 
 Une fois l'installation terminée vous pouvez vous rendre sur :
 \begin{center}
+    \label{url:home}
     \url{http://192.168.76.76:8080/ProjetWeb/home}
 \end{center}
 et vous connecter avec les identifiants renseignés.
@@ -186,4 +219,72 @@ Un jeu de données pré-rempli est disponible pour effectuer des tests sur notre
 Pour pouvoir utiliser ces données il suffit d'exécuter avec mysql le script \verb:insertion.sql:.
 Également, durant l'installation, l'insertion de ce jeu de données de test vous ait proposé, que
 vous pouvez accepter ou refuser.
+\newpage
+
+\section{Utilisation}
+
+Après avoir installé la plateforme et créé le compte de l'administrateur vous pouvez vous rendre
+sur le lien précédent ~\ref{url:home}. Vous arrivez sur la page suivante :
+
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\textwidth]{img/home.png}
+    \caption{Accueil du site}
+\end{figure}
+
+Vous pouvez ensuite vous connecter en cliquant sur \textbf{Connexion}. La page suivante
+s'affichera :
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\textwidth]{img/sign-in.png}
+    \caption{Page de connexion}
+\end{figure}
+
+Lorsque vous vous connecter en tant qu'administrateur vous arrivez sur la page suivante :
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\textwidth]{img/admin.png}
+    \caption{Panneau administrateur}
+\end{figure}
+
+Dans le panneau latéral, on peut effectuer les actions suivantes :
+\begin{description}
+    \item[\textbf{Lister}] : permet de lister les responsables de maintenance, de voir et modifier
+        leurs statuts (en attente / actif / inactif).
+    \item[\textbf{Supprimer}] : permet de supprimer un responsable de maintenance et de donner les
+        ressources dont il est responsable à un autre responsable.
+\end{description}
+\medskip
+
+Ensuite, pour créer un compte de responsable de maintenance il faut se rendre sur la page
+d'enregistrement en cliquant sur \textbf{Inscription} :
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\textwidth]{img/sign-up.png}
+    \caption{Page d'inscription}
+\end{figure}
+
+Si les informations remplies sont corrects (email correct et mot de passe fort), le compte est
+créé. Maintenant pour pouvoir obtenir les droits de responsable de maintenance il faut que
+l'administrateur les accordent depuis sa page.\newline
+
+Une fois les droits accordés un responsable de maintenance arrive sur la page suivante lorsqu'il
+se connecte :
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\textwidth]{img/sign-up.png}
+    \caption{Panneau de responsable de maintenance}
+\end{figure}
+
+Dans le panneau latéral, les actions suivantes sont disponibles :
+\begin{description}
+    \item[\textbf{Général}] : page principale, affiche la liste des anomalies en attente, non
+        résolues.
+    \item[\textbf{Lister}] : affiche la liste des ressources dont l'utilisateur est responsable.
+    \item[\textbf{Ajouter}] : permet d'ajouter une nouvelle ressource.
+    \item[\textbf{Supprimer}] : permet de supprimer une ressource.
+\end{description}
+
+
+
 

@@ -4,10 +4,10 @@
 # Necéssite les droits administrateurs
 
 # check rights
-if [ "$EUID" -ne 0 ]; then
-    echo "Le script doit être lancé en tant que root !"
-    exit
-fi
+#if [ "$EUID" -ne 0 ]; then
+#    echo "Le script doit être lancé en tant que root !"
+#    exit
+#fi
 
 # colors
 red="\e[0;91m"
@@ -80,6 +80,10 @@ ask_password() {
     echo "$password"
 }
 
+# MySQL username/password
+dbuser=phpmyadmin
+dbpass="7Zg72if4NoCaKzRv30T"
+
 ### MAIN ###
 
 echo -e "${bold}Installation de la plateforme${reset}"
@@ -112,8 +116,8 @@ jars=("qrgen-1-0.jar" "zxing-core-1-7.jar" "zxing-j2se-1-7.jar" "mysql-connector
 
 for jar in "${jars[@]}"
 do
+    # for each jar if they are not present fetch him from GitHub
     if [[ ! -f ./$jar ]]; then
-        # for each jar if they are not present fetch him from GitHub
         echo "Récupération du fichier $jar depuis GitHub..."
         wget https://github.com/loukabvn/projet-web/raw/main/jars/$jar 2> /dev/null
         mv ./$jar /var/lib/tomcat8/lib
@@ -121,6 +125,7 @@ do
         cp ./$jar /var/lib/tomcat8/lib
     fi
 done
+
 # change owner of .jar and restart tomcat service
 chown tomcat8 /var/lib/tomcat8/lib/*
 systemctl restart tomcat8
@@ -151,10 +156,10 @@ password=$(ask_password)
 
 # admin rights needed here
 sql="CREATE USER '$username'@'%' IDENTIFIED BY '$password';"
-mysql <<< $sql
+mysql -u $dbuser --password=$dbpass <<< $sql
 
 sql="GRANT ALL PRIVILEGES ON projet.* TO '$username'@'%';"
-mysql <<< $sql
+mysql -u $dbuser --password=$dbpass <<< $sql
 
 echo -e "${bold}[3/7] Utilisateur $username créé${reset}"
 
@@ -172,7 +177,7 @@ mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 ###### CREATION ######
 
 # Tables creation
-mysql < ./creation.sql
+mysql -u $dbuser --password=$dbpass < ./creation.sql
 
 echo -e "${bold}[4/7] Tables créées${reset}"
 
@@ -184,7 +189,7 @@ if [[ $response == [Yy]* ]]; then
     echo "Récupération du script SQL depuis GitHub..."
     wget https://raw.githubusercontent.com/loukabvn/projet-web/main/insert.sql 2> /dev/null
     echo "Exécution du script..."
-    mysql < ./insert.sql
+    mysql -u $dbuser --password=$dbpass < ./insert.sql
     echo "Données ajoutés"
     dataset=1
 fi
@@ -211,7 +216,7 @@ passwd_hash=$(java ./Generation.java cook "$salt" "$password")
 
 sql="USE projet; INSERT INTO Admin(AdminName, AdminMail, AdminPassword, AdminSalt) VALUES('$username', '$email', '$passwd_hash', '$salt');"
 # Insert admin
-mysql <<< $sql
+mysql -u $dbuser --password=$dbpass <<< $sql
 
 echo -e "${bold}[7/7] $username ajouté en tant qu'administrateur${reset}"
 
