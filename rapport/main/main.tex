@@ -157,7 +157,17 @@ base. Il fallait donc trouver, télécharger et inclure au projet la librairie l
 (\verb:mysql-connector-java.jar:).\newline
 
 Après avoir écrit le modèle et la vue du projet, nous avons eu quelques difficultés au moment
-d'écrire le contrôleur [... à expliquer ...].\newline
+d'écrire le contrôleur :
+\begin{itemize}
+    \item Comprendre le mapping entre les différentes routes et les contrôleurs Java associés,
+        et comment le définir dans le fichier \verb:web.xml:.
+    \item Arriver à structurer le contrôleur de manière épuré et factoriser le code.
+    \item La différence entre les appels \verb:requestDispatcher.forward: et\\
+        \verb:HttpServletResponse.sendRedirect:.
+    \item Éviter les broken access control.
+    \item Comprendre le fonctionnement et la mise en place des \verb:servlet.Filter:.
+\end{itemize}
+\medskip
 
 Également le fait d'utiliser Java comme langage de programmation de la plateforme nous as
 poussé à utiliser Eclipse comme IDE. Cela permet de gagner beaucoup de temps sur certains points
