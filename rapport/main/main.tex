@@ -234,55 +234,65 @@ vous pouvez accepter ou refuser.
 \section{Utilisation}
 
 Après avoir installé la plateforme et créé le compte de l'administrateur vous pouvez vous rendre
-sur le lien précédent ~\ref{url:home}. Vous arrivez sur la page suivante :
+sur le lien précédent (section \ref{url:home}). Vous arrivez sur la page suivante :
 
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-%    \includegraphics[width=\textwidth]{img/home.png}
+    \includegraphics[width=15cm]{img/home.png}
     \caption{Accueil du site}
 \end{figure}
 
 Vous pouvez ensuite vous connecter en cliquant sur \textbf{Connexion}. La page suivante
 s'affichera :
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-%    \includegraphics[width=\textwidth]{img/sign-in.png}
+    \includegraphics[width=15cm]{img/sign-in.png}
     \caption{Page de connexion}
 \end{figure}
+\newpage
 
 Lorsque vous vous connecter en tant qu'administrateur vous arrivez sur la page suivante :
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-%    \includegraphics[width=\textwidth]{img/admin.png}
+    \includegraphics[width=\textwidth]{img/admin.png}
     \caption{Panneau administrateur}
 \end{figure}
 
 Dans le panneau latéral, on peut effectuer les actions suivantes :
 \begin{description}
     \item[\textbf{Lister}] : permet de lister les responsables de maintenance, de voir et modifier
-        leurs statuts (en attente / actif / inactif).
+        leurs statuts : en attente / actif / inactif (bouton rouge à gauche de chaque responsable).
     \item[\textbf{Supprimer}] : permet de supprimer un responsable de maintenance et de donner les
         ressources dont il est responsable à un autre responsable.
 \end{description}
-\medskip
+\newpage
 
 Ensuite, pour créer un compte de responsable de maintenance il faut se rendre sur la page
 d'enregistrement en cliquant sur \textbf{Inscription} :
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-%    \includegraphics[width=\textwidth]{img/sign-up.png}
+    \includegraphics[width=\textwidth]{img/sign-up.png}
     \caption{Page d'inscription}
 \end{figure}
 
 Si les informations remplies sont corrects (email correct et mot de passe fort), le compte est
 créé. Maintenant pour pouvoir obtenir les droits de responsable de maintenance il faut que
-l'administrateur les accordent depuis sa page.\newline
+l'administrateur les accordent depuis sa page.
+
+Un mot de passe fort doit faire au moins 8 caractères et contenir au minimum :
+\begin{itemize}
+    \item Une majuscule,
+    \item Une minuscule,
+    \item Un chiffre,
+    \item Un caractère spécial (!@\#\$\&*).
+\end{itemize}
+\newpage
 
 Une fois les droits accordés un responsable de maintenance arrive sur la page suivante lorsqu'il
 se connecte :
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-%    \includegraphics[width=\textwidth]{img/sign-up.png}
+    \includegraphics[width=\textwidth]{img/maintainer.png}
     \caption{Panneau de responsable de maintenance}
 \end{figure}
 
@@ -294,7 +304,19 @@ Dans le panneau latéral, les actions suivantes sont disponibles :
     \item[\textbf{Ajouter}] : permet d'ajouter une nouvelle ressource.
     \item[\textbf{Supprimer}] : permet de supprimer une ressource.
 \end{description}
+Pour chacune des anomalies, lorsque l'une d'elles est résolue, il suffit de cliquer sur
+\textbf{Résolu} et son statut change. Sur la page d'accueil on peut voir les dernières anomalies
+résolues.
+\newpage
 
-
-
+Enfin, lorsqu'un utilisateur flash un QR code, par exemple pour la ressource n°1, il arrive sur
+la page suivante :
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth]{img/ressource.png}
+    \caption{Déclaration d'une anomalie pour le vidéo-projecteur de la salle U2.2.39}
+\end{figure}
+Il peut donc sélectionner une anomalie déjà signalée dans la liste déroulante
+<<Incidents répertoriés>> ou bien cliquer sur le bouton \textbf{+} pour en déclarer une nouvelle.
+Ensuite pour la soumettre, il clique sur \textbf{Envoyer}.
 
