@@ -172,7 +172,8 @@ echo "db = \"projet\"" >> access.config
 echo "username = \"$username\"" >> access.config
 echo "password = \"$password\"" >> access.config
 
-mv access.config /var/lib/tomcat8/webapps/ProjetWebV2/common/
+ls -R /var/lib/tomcat8/webapps
+mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 
 ###### CREATION ######
 
