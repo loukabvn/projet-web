@@ -139,7 +139,7 @@ if [[ $war -gt 0 ]]; then
 else
     cp ./ProjetWeb.war /var/lib/tomcat8/webapps/
 fi
-sleep 1
+sleep 2
 
 ###### MYSQL CONFIGURATION ######
 
@@ -172,7 +172,6 @@ echo "db = \"projet\"" >> access.config
 echo "username = \"$username\"" >> access.config
 echo "password = \"$password\"" >> access.config
 
-ls -R /var/lib/tomcat8/webapps
 mv access.config /var/lib/tomcat8/webapps/ProjetWeb/common/
 
 ###### CREATION ######
