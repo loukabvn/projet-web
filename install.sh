@@ -99,13 +99,13 @@ fi
 
 if [[ ! -f ./creation.sql ]]; then
     echo "Récupération du script SQL de création des tables depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/creation.sql 2> /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/utils/creation.sql 2> /dev/null
     sql_script=1
 fi
 
 if [[ ! -f ./Generation.java ]]; then
     echo "Récupération du script Java pour la génération de mot de passe depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/Generation.java 2> /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/utils/Generation.java 2> /dev/null
     java=1
 fi
 
@@ -187,7 +187,7 @@ response=""
 read -p "Souhaitez-vous insérer le jeu de données de test dans la base de données ? [y/n] " response
 if [[ $response == [Yy]* ]]; then
     echo "Récupération du script SQL depuis GitHub..."
-    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/insert.sql 2> /dev/null
+    wget https://raw.githubusercontent.com/loukabvn/projet-web/main/utils/insert.sql 2> /dev/null
     echo "Exécution du script..."
     mysql -u $dbuser --password=$dbpass < ./insert.sql
     echo "Données ajoutés"
